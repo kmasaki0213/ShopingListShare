@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title ShoppingList
+    title 買いたいもの共有アプリ
     meta name="viewport" content="width=device-width, initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
@@ -11,7 +11,7 @@ html
 
   body
     .app-title.navbar.navbar-expand-md.bg-info
-      .navbar-brand.p-3 買いたいもの共有アプリ
+      .navbar-brand.p-3= link_to '買いたいもの共有アプリ', dashboard_path, class: 'nav-link'
 
       ul.navbar-nav.ms-auto.px-3
         - if user_signed_in?

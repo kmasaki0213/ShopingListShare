@@ -5,6 +5,9 @@ h2.my-5.text-center.fw-bold ログイン
     .card.shadow
       .card-body.p-5
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .mb-3.text-danger
+            p.mb-0 テスト用メールアドレス:test@example.com
+            p. テスト用パスワード:password
           .mb-3
             = f.label :email, 'メールアドレス', class: 'form-label fw-bold'
             = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
@@ -19,7 +22,8 @@ h2.my-5.text-center.fw-bold ログイン
               = f.label :remember_me, 'ログイン情報を記憶する', class: 'form-check-label'
 
           .d-flex.justify-content-between
-            ul.list-group
+            .
               p.mb-0= link_to 'パスワードを忘れた方はこちら', new_password_path(resource_name), class: 'text-muted'
               p.mb-0= link_to '新規登録はこちら', new_user_registration_path, class: 'text-muted'
             = f.submit 'ログイン', class: 'btn btn-primary'
+
