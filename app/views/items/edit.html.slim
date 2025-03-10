@@ -1,0 +1,7 @@
+= render "items/form",
+    item: @item,
+    team: @team,
+    form_url: team_item_path(@team, @item),
+    form_method: :patch,
+    back_path: team_item_path(@team, @item),
+    form_title: 'アイテム編集'

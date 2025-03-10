@@ -1,0 +1,28 @@
+turbo-frame id="item_details" data-turbo-action="replace"
+  .card.shadow-lg
+    .card-header.bg-info.text-white.text-center
+      h3.mb-0 アイテム詳細
+
+    .card-body.p-5
+      .d-flex.mb-5
+        - unless @item.purchased?
+          = link_to '購入', toggle_status_team_item_path(@team, @item, status: 'purchased'), data: { turbo_method: :patch, turbo_frame: 'item_details' }, class: 'btn btn-success me-3'
+
+        - unless @item.rejected?
+          = link_to '却下', toggle_status_team_item_path(@team, @item, status: 'rejected'), data: { turbo_method: :patch, turbo_frame: 'item_details' }, class: 'btn btn-danger me-3'
+
+        - if @item.purchased? || @item.rejected?
+          = link_to '元に戻す', toggle_status_team_item_path(@team, @item, status: 'pending'), data: { turbo_method: :patch, turbo_frame: 'item_details' }, class: 'btn btn-warning'
+
+
+      p 品名: #{@item.name}
+      p 説明: #{@item.description}
+      p 価格: #{@item.price}円
+      p 個数: #{@item.quantity}
+      
+
+      .d-flex.justify-content-between
+        = link_to '戻る', team_path(@item.team), data: { turbo_frame: 'item_details' }, class: 'btn btn-outline-secondary'
+        .d-flex
+          = link_to '編集する', edit_team_item_path(@item.team, @item), data: { turbo_frame: 'item_details' }, class: 'btn btn-secondary me-3'
+          = link_to '削除', team_item_path(@team, @item), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: 'btn btn-danger'

@@ -1,0 +1,7 @@
+= render "items/form",
+    item: @item,
+    team: @team,
+    form_url: team_items_path(@team),
+    form_method: :post,
+    back_path: team_path(@team),
+    form_title: 'アイテム追加'

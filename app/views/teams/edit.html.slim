@@ -1,0 +1,15 @@
+.container
+  h2.my-5.text-center.fw-bold チーム名の変更
+
+  .row.justify-content-center
+    .col-md-6
+      .card.shadow
+        .card-body.p-5
+          = form_for @team do |f|
+            .mb-3
+              = f.label :name, '新しいチーム名', class: 'form-label fw-bold'
+              = f.text_field :name, class: 'form-control'
+
+            .d-flex.justify-content-between.mt-4
+              = link_to 'キャンセル', team_path(@team), class: 'btn btn-outline-secondary'
+              = f.submit '更新', class: 'btn btn-success'

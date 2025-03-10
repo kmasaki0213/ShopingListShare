@@ -1,0 +1,23 @@
+h2.my-5.text-center.fw-bold メンバー追加（#{@team.name}）
+
+.card.shadow-lg
+  .card-body.p-4
+    - if @users.any?
+      table.table.table-hover
+        thead
+          tr
+            th 名前
+            th メール
+            th 操作
+        tbody
+          - @users.each do |user|
+            tr
+              td = user.name
+              td = user.email
+              td
+                = button_to '追加', add_member_team_path(@team, user_id: user.id), method: :post, class: 'btn btn-sm btn-primary'
+    - else
+      p.text-muted 追加できるユーザーがいません。
+
+    .text-center.mt-3
+      = link_to '戻る', team_path(@team), class: 'btn btn-outline-secondary'

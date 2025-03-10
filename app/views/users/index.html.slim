@@ -1,0 +1,19 @@
+h2.my-5.text-center.fw-bold ユーザー一覧
+
+.row.justify-content-center
+  .col-md-8
+    .card.shadow
+      .card-body.p-4
+        table.table.table-hover
+          thead
+            tr
+              th 名前
+              th メール
+              th 操作
+          tbody
+            - @users.each do |user|
+              tr
+                td = user.name
+                td = user.email
+                td
+                  = link_to '詳細', user_path(user), class: 'btn btn-sm btn-primary'

@@ -1,0 +1,33 @@
+turbo-frame id="item_details"
+  .card.shadow-lg
+    .card-header.bg-success.text-white.text-center
+      h3.mb-0 = form_title
+
+    .card-body.p-4
+      - if @item.errors.any?
+        .alert.alert-danger
+          h4.text-danger エラーがあります
+          ul
+            - @item.errors.full_messages.each do |message|
+              li = message
+
+      = form_with model: @item, url: form_url, method: form_method, data: { turbo_frame: 'item_details' } do |f|
+        .mb-3
+          = f.label :name, '品名', class: 'form-label'
+          = f.text_field :name, class: 'form-control'
+
+        .mb-3
+          = f.label :description, '説明', class: 'form-label'
+          = f.text_area :description, class: 'form-control'
+
+        .mb-3
+          = f.label :price, '価格', class: 'form-label'
+          = f.number_field :price, class: 'form-control'
+
+        .mb-3
+          = f.label :quantity, '個数', class: 'form-label'
+          = f.number_field :quantity, class: 'form-control'
+
+        .d-flex.justify-content-between
+          = link_to '戻る', back_path, data: { turbo_frame: 'item_details' }, class: 'btn btn-outline-secondary'
+          = f.submit @item.new_record? ? '追加' : '更新', class: 'btn btn-success'

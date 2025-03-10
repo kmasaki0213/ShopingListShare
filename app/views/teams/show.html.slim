@@ -1,0 +1,35 @@
+h2.my-5.text-center.fw-bold 
+  = @team.name
+  - if @team.owner == current_user
+    = link_to '✏️ 編集', edit_team_path(@team), class: 'btn btn-sm btn-outline-secondary ms-2'
+
+.row
+
+  / ⭐ 左側のコンテンツ（買い物リスト or アイテム詳細）
+  .col-md-8
+    = turbo_frame_tag "item_details" do
+      = render "items/list", team: @team
+
+  / ⭐ 右側のメンバー一覧（ウィジェット）
+  .col-md-4
+    .card.shadow-sm
+      .card-header.bg-secondary.text-white.text-center
+        h5.mb-0 メンバー
+      .card-body.p-2
+        .list-group
+          - @team.users.each do |user|
+            .list-group-item.d-flex.justify-content-between.align-items-center
+              span.fw-bold = user.name
+              - if user == @team.owner
+                span.badge.bg-warning.text-dark リーダー
+              - elsif @team.owner == current_user
+                .d-flex.gap-2
+                  = link_to '譲渡', transfer_ownership_team_path(@team, user_id: user.id), data: { "turbo-method": :post, "turbo-confirm": "#{user.name} さんにオーナー権限を譲渡しますか？" }, class: 'btn btn-sm btn-warning'
+                  = link_to '追放', remove_member_team_path(@team, user_id: user.id), data: { "turbo-method": :delete, "turbo-confirm": "#{user.name} さんをチームから追放しますか？" }, class: 'btn btn-sm btn-danger'
+
+        .text-center.my-3
+          = link_to 'メンバー追加', members_team_path(@team), class: 'btn btn-success me-2'
+          - if @team.owner == current_user
+            = link_to 'チームを解散', @team, data: { "turbo-method": :delete, "turbo-confirm": '本当にチームを解散しますか？' }, class: 'btn btn-outline-danger'
+          - unless @team.owner == current_user
+            = link_to 'チームを抜ける', leave_team_path(@team), data: { "turbo-method": :post, "turbo-confirm": '本当にチームを抜けますか？' }, class: 'btn btn-outline-danger'

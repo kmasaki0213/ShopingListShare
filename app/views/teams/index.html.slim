@@ -1,0 +1,25 @@
+h2.my-5.text-center.fw-bold チーム一覧
+
+.card.shadow-lg
+  .card-body.p-4
+    .d-flex.justify-content-between.my-3
+      = link_to 'チーム作成', new_team_path, class: 'btn btn-success'
+    - if @teams.any?
+      table.table.table-hover
+        thead
+          tr
+            th チーム名
+            th オーナー
+            th 操作
+        tbody
+          - @teams.each do |team|
+            tr
+              td = link_to team.name, team_path(team), class: 'text-decoration-none'
+              td = team.owner.name
+              td
+                - if current_user.teams.include?(team)
+                  span.badge.bg-secondary 参加済み
+                - else
+                  = button_to '参加', join_team_path(team), method: :post, class: 'btn btn-sm btn-primary'
+    - else
+      p.text-muted まだチームがありません。

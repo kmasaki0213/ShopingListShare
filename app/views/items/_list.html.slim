@@ -1,0 +1,33 @@
+.card.shadow-lg
+  .card-header.bg-primary.text-white.text-center
+    h3.mb-0 🛒 買い物リスト
+
+  .card-body.p-4
+    - if team.items.any?
+      table.table.table-hover
+        thead
+          tr
+            th 品名
+            th 価格
+            th 個数
+            th ステータス
+        tbody
+          - team.items.each do |item|
+            tr
+              td = link_to item.name, team_item_path(team, item), data: { turbo_frame: 'item_details' }
+              td ¥#{item.price}
+              td = item.quantity
+              td
+                - case item.status
+                - when "purchased"
+                  span.badge.bg-success 購入済み
+                - when "rejected"
+                  span.badge.bg-danger 却下
+                - else
+                  span.badge.bg-warning 未購入
+
+    - else
+      p.text-muted 買い物リストがまだありません。
+
+    .text-center.mt-3
+      = link_to 'アイテム追加', new_team_item_path(team), data: { turbo_frame: 'item_details' }, class: 'btn btn-primary'

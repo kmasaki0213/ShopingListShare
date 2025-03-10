@@ -1,0 +1,19 @@
+h2.my-5.text-center.fw-bold 履歴（購入済みアイテム）
+
+- if @items.any?
+  table.table.table-hover
+    thead
+      tr
+        th 品名
+        th 価格
+        th 個数
+        th 購入日時
+    tbody
+      - @items.each do |item|
+        tr
+          td = item.name
+          td ¥#{item.price}
+          td = item.quantity
+          td = item.purchased_at.strftime('%Y-%m-%d %H:%M')
+- else
+  p.text-muted 過去に購入したアイテムはありません。

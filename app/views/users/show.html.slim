@@ -1,0 +1,22 @@
+h2.my-5.text-center.fw-bold ユーザー詳細
+
+.row.justify-content-center
+  .col-md-6
+    .card.shadow
+      .card-body.p-4
+        .mb-3
+          strong 名前:
+          span.ms-2 = @user.name
+
+        .mb-3
+          strong メール:
+          span.ms-2 = @user.email
+
+        / - if @user.team
+          .mb-3
+            strong チーム:
+            / span.ms-2 = @user.team.name
+
+        .d-flex.justify-content-between
+          = link_to 'プロフィール編集', edit_user_path(@user), class: 'btn btn-primary'
+          = link_to '戻る', users_path, class: 'btn btn-outline-secondary'

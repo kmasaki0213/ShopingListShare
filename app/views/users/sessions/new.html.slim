@@ -1,0 +1,25 @@
+h2.my-5.text-center.fw-bold ログイン
+
+.row.justify-content-center
+  .col-md-6
+    .card.shadow
+      .card-body.p-5
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .mb-3
+            = f.label :email, 'メールアドレス', class: 'form-label fw-bold'
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+
+          .mb-3
+            = f.label :password, 'パスワード', class: 'form-label fw-bold'
+            = f.password_field :password, autocomplete: "current-password", class: 'form-control'
+
+          - if devise_mapping.rememberable?
+            .form-check.mb-3
+              = f.check_box :remember_me, class: 'form-check-input'
+              = f.label :remember_me, 'ログイン情報を記憶する', class: 'form-check-label'
+
+          .d-flex.justify-content-between
+            = link_to 'パスワードを忘れた方はこちら', new_password_path(resource_name), class: 'text-muted'
+            = f.submit 'ログイン', class: 'btn btn-primary'
+
+        = render "users/shared/links"

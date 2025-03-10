@@ -1,0 +1,43 @@
+.container
+  h2.my-5.text-center.fw-bold プロフィール編集
+
+  .row.justify-content-center
+    .col-md-8
+      .card.shadow
+        .card-body.p-5
+          - if resource.errors.any?
+            .alert.alert-danger
+              h4.text-danger エラーがあります
+              ul
+                - resource.errors.full_messages.each do |message|
+                  li = message
+
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :patch }) do |f|
+            .mb-3
+              = f.label :name, '名前', class: 'form-label fw-bold'
+              = f.text_field :name, class: 'form-control'
+
+            .mb-3
+              = f.label :email, 'メールアドレス', class: 'form-label fw-bold'
+              = f.email_field :email, class: 'form-control'
+
+            hr
+
+            .mb-3
+              = f.label :password, '新しいパスワード', class: 'form-label fw-bold'
+              = f.password_field :password, class: 'form-control'
+
+            .mb-3
+              = f.label :password_confirmation, '新しいパスワード確認', class: 'form-label fw-bold'
+              = f.password_field :password_confirmation, class: 'form-control'
+
+            hr
+
+            .mb-3
+              = f.label :current_password, '現在のパスワード（変更時に必要）', class: 'form-label fw-bold'
+              = f.password_field :current_password, class: 'form-control', required: true
+
+            .d-flex.justify-content-between.mt-4
+              = link_to 'キャンセル', dashboard_path, class: 'btn btn-outline-secondary'
+              = f.submit '更新', class: 'btn btn-success'
+              = link_to '退会する', registration_path(resource_name), data: { turbo_method: :delete, confirm: '本当に退会しますか？' }, class: 'btn btn-danger'
