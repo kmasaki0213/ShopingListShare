@@ -1,0 +1,62 @@
+// 🎨 配色設定
+$main-color: #FF9F1C;
+$sub-color: #FFBF69;
+$background-color: #FFF7E6;
+$accent-color: #D81159;
+
+// 🏠 背景スタイル
+body {
+  background-color: $background-color;
+  color: #333;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  position: relative;
+}
+
+// 🔵 ストライプボール背景
+body::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 120%;
+  height: 120%;
+  background-image: url('/assets/stripes_ball.png'); // 画像パスを適宜変更
+  background-size: 200px;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+// 🎀 ボタンのスタイル
+.btn-primary {
+  background-color: $main-color;
+  border-color: darken($main-color, 10%);
+
+  &:hover {
+    background-color: lighten($main-color, 10%);
+  }
+}
+
+.btn-secondary {
+  background-color: $sub-color;
+  border-color: darken($sub-color, 10%);
+
+  &:hover {
+    background-color: lighten($sub-color, 10%);
+  }
+}
+
+// 🏷️ カードデザイン
+.card {
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+// 📢 ヘッダーのデザイン
+.navbar {
+  background-color: $main-color;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
